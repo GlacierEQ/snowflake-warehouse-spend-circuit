@@ -1,0 +1,12 @@
+{
+  "schema": "glaciereq.repo-capabilities.v1",
+  "repository": "GlacierEQ/snowflake-warehouse-spend-circuit",
+  "capabilities": [
+    {
+      "id": "warehouse-spend-circuit",
+      "name": "Warehouse Spend Circuit",
+      "status": "SCAFFOLD",
+      "module": "src/warehouse_spend_circuit.py"
+    }
+  ]
+}

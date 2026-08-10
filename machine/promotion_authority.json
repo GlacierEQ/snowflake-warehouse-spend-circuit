@@ -1,0 +1,11 @@
+{
+  "schema": "glaciereq.promotion-authority-grant.v1",
+  "repository": "GlacierEQ/snowflake-warehouse-spend-circuit",
+  "source_sha": "3d4596de408a1985837e5f2764652e5e1334893143b67080e5779132b0e35a04",
+  "proof_receipt_digest": "45314aee31bc7a9c43700d511d0f33e34660873b6c2f97c4826c80a1f554e012",
+  "not_after": 1788948696.841773,
+  "mac": "e4be915f8162cf30b1b0f370b9e3a6e660d0e682bd8211deef94ccfbd02b9ec3",
+  "issuer": "local_operator_promotion_authority",
+  "verified": true,
+  "secret_ref": "src/promotion_authority.py::LOCAL_OPERATOR_SECRET"
+}

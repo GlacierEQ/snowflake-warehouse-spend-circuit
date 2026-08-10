@@ -1,0 +1,31 @@
+{
+  "schema": "glaciereq.proof-receipt.v1",
+  "repository": "GlacierEQ/snowflake-warehouse-spend-circuit",
+  "source_sha": "3d4596de408a1985837e5f2764652e5e1334893143b67080e5779132b0e35a04",
+  "proof_id": "elite-snowflake-warehouse-spend-circuit-1786356696",
+  "environment": {
+    "python": "/Users/kcbflux/.local/bin/python3.11",
+    "PYTHONPATH": "/Users/kcbflux/GlacierEQ_Swarm/job-app/repos/snowflake-warehouse-spend-circuit:/Users/kcbflux/GlacierEQ_Swarm/job-app/repos/snowflake-warehouse-spend-circuit/src",
+    "entry": "unittest"
+  },
+  "tests": [
+    "/Users/kcbflux/.local/bin/python3.11 -m unittest discover -s tests -v (x2)"
+  ],
+  "adversarial_tests": [
+    "tests/test_adversarial.py"
+  ],
+  "runtime": {
+    "operate": "scripts/operate.py (x2)",
+    "dual_run_ok": true,
+    "proof_dual_run_ok": true
+  },
+  "result": "PASS",
+  "limitations": [
+    "not production deployed",
+    "reference implementation only"
+  ],
+  "timestamp": "2026-08-10T10:11Z",
+  "artifact_hashes": {
+    "operability_receipt": "4d2d64959845ecf3535fe51739e24f60cebd119474b37157c89744921344a49b"
+  }
+}
