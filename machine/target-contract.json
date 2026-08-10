@@ -1,22 +1,36 @@
 {
-  "schema": "glaciereq.repo-target-contract.v1",
-  "identity": {
-    "repository_id": "GlacierEQ/snowflake-warehouse-spend-circuit",
-    "family": "elite-estate"
-  },
-  "current": {
-    "state": "PROMOTED",
-    "implemented": true,
-    "tested": true,
-    "deployed": false
-  },
-  "nonclaims": [
-    "no employer affiliation",
-    "no production deployment without receipt"
+  "schema": "glaciereq.leaf-target-contract.v2",
+  "repository": "GlacierEQ/snowflake-warehouse-spend-circuit",
+  "mechanism": "Warehouse Spend Circuit",
+  "independent_reference": true,
+  "inputs": [
+    "subject_id",
+    "warehouse_class",
+    "estimated_runtime_seconds",
+    "credits_per_hour",
+    "credit_price_usd",
+    "spent_usd_to_date",
+    "budget_limit_usd",
+    "concurrency",
+    "now",
+    "metadata",
+    "override"
   ],
-  "donor_plan": {
-    "mode": "none",
-    "donors": []
-  },
-  "frozen_at": "2026-08-10T10:11Z"
+  "invariants": [
+    "all numeric cost inputs are finite",
+    "runtime, credit rate, price, budget, and concurrency are positive",
+    "projected_total_usd = spent_usd_to_date + estimated_cost_usd",
+    "projected total above budget refuses without valid override claims",
+    "override is subject-bound, fresh, warehouse-scoped, and ceiling-bounded",
+    "unsupported metadata types are rejected rather than stringified",
+    "public leaf contains no promotion signing secret"
+  ],
+  "promotion_requires": [
+    "current source-bound implementation proof",
+    "behavioral proof",
+    "adversarial proof",
+    "direct operate proof",
+    "external promotion authority",
+    "canonical position resolved"
+  ]
 }

@@ -5,47 +5,52 @@ Independent GlacierEQ portfolio exhibit aligned to **Snowflake** operating theme
 > **Not affiliated.** This repository is not affiliated with, endorsed by, employed by, or deployed at Snowflake.
 > No proprietary access, production deployment, customer impact, or company partnership is claimed.
 
-## Bottleneck (GlacierEQ hypothesis)
+## Bottleneck
 
-Converting heterogeneous governed data into fresh, low-latency, permission-correct agent context.
+Warehouse and agent workloads can turn a small planning error into uncontrolled compute spend when concurrency, runtime, credit rate, and already-consumed budget are evaluated separately.
 
-**Brick wall:** Preserving identity, lineage, semantics, freshness, and cost controls across data, models, and actions.
+## Implemented mechanism
 
-**Observed public pressure (snapshot hypothesis):** Enterprise data platforms are becoming context and action layers for governed agents.
+**Warehouse Spend Circuit** performs deterministic pre-run cost admission:
 
-## Innovation mechanism
+1. validates finite, positive runtime/rate/price and bounded concurrency inputs;
+2. estimates warehouse credits from runtime × credit rate × concurrency;
+3. converts credits into projected spend;
+4. adds already-consumed spend to derive the projected budget total;
+5. **trips the circuit** when that total exceeds the declared budget;
+6. accepts an override only when caller-supplied authority claims match the workload, remain fresh, cover the warehouse class, and bound the projected total;
+7. binds the decision and cost inputs into a canonical SHA-256 receipt.
 
-**Warehouse Spend Circuit** — Estimate cost envelope pre-run and trip a spend circuit with explicit override grants.
+The public leaf does **not** embed a signing secret. Cryptographic grant verification belongs outside the leaf; this mechanism consumes explicit verified claims and independently enforces scope, freshness, subject binding, and spend ceilings.
 
-## Target roles
+## Demonstrable now
 
-- Applied AI Systems Architect
-- Forward-Deployed Engineer
-- AI Infrastructure / Governance Engineer
+- normal workload admission inside the spend envelope;
+- pre-run circuit trip when projected total exceeds budget;
+- bounded override authorization;
+- refusal of expired, replayed, scope-mismatched, or insufficient overrides;
+- refusal of NaN/Inf and non-canonical metadata;
+- deterministic receipts over semantically relevant cost inputs;
+- direct `scripts/operate.py` execution plus behavioral/adversarial tests.
 
-## Application move
-
-Demonstrate a governed company-intelligence update stream with freshness and lineage.
-
-## Current scaffold state
-
-This leaf is a **scaffold**: contracts, tests, and a stub mechanism exist so another engineer/AI can fill production-grade code without inventing company affiliation.
+## Surfaces
 
 | Surface | Path |
-|---------|------|
-| Mechanism stub | `src/warehouse_spend_circuit.py` |
-| Operate entry | `scripts/operate.py` |
-| Contract tests | `tests/` |
+|---|---|
+| Spend mechanism | `src/warehouse_spend_circuit.py` |
+| Direct operate proof | `scripts/operate.py` |
+| Behavioral tests | `tests/test_warehouse_spend_circuit.py` |
+| Adversarial tests | `tests/test_adversarial.py` |
 | Target contract | `machine/target-contract.json` |
-| **AI fill-in brief** | **`DEV_UP_INSTRUCTIONS.md`** |
-| Issue contract | `ISSUE_CONTRACT.md` |
+| Engineering handoff | `DEV_UP_INSTRUCTIONS.md` |
 
 ## Non-claims
 
 - No Snowflake employment, endorsement, proprietary data, or production use
-- No customer, revenue, latency, or scale claims without separate receipts
-- Scaffold tests define **intended behavior**, not verified production excellence
+- No assertion that this model reproduces Snowflake billing
+- No customer, revenue, latency, savings, or production-scale claim
+- Passing repository tests establishes this reference mechanism's behavior, not external production excellence
 
-## Next gate
+## Next proof gate
 
-Implement incremental refresh and stale-source detection for the atlas.
+Bind a fresh implementation-proof receipt to the current source tree, then require independent promotion authority and canonical-position resolution before any `PROMOTED` state.
